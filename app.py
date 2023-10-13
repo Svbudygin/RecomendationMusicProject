@@ -39,6 +39,14 @@ def preprocess_file(file_path: str) -> List[List[object]]:
     return df.values.tolist()
 
 
+def cosine_similarity(vector1: list, vector2: list):
+    ln_vector = len(vector2)
+    sm_vector1_vector2 = sum((vector1[i] * vector2[i] for i in range(ln_vector)))
+    vector1_squared = sum((vector1[i] ** 2 for i in range(ln_vector))) ** (1 / 2)
+    vector2_squared = sum((vector2[i] ** 2 for i in range(ln_vector))) ** (1 / 2)
+    return sm_vector1_vector2 / (vector2_squared * vector1_squared)
+
+
 def get_artist_with_most_songs(table):
     artists = dict()
 
@@ -89,7 +97,7 @@ def get_top_artist_tracks(table, artist: str, n=5):
 
     print(artist)
     for i, song in enumerate(sorted(songs, key=lambda x: x[1], reverse=True)[:n]):
-        print(f"{i+1}) {song[0]}: {song[1]}")
+        print(f"{i + 1}) {song[0]}: {song[1]}")
 
 
 def euclidean_distance(vector_1, vector_2):
@@ -97,7 +105,7 @@ def euclidean_distance(vector_1, vector_2):
     for i in range(len(vector_1)):
         result += (vector_1[i] - vector_2[i]) ** 2
 
-    return result**0.5
+    return result ** 0.5
 
 
 def get_top_songs_by_sound(table, song_id, n=5):
@@ -140,7 +148,6 @@ def hamming_distance(left_str, right_str):
 
 
 def jaccard_index(left_str, right_str):
-
     sim = 0
     lset, rset = set(left_str.split()), set(right_str.split())
     print(lset, rset, lset & rset, lset | rset - lset & rset)
@@ -216,11 +223,11 @@ if __name__ == "__main__":
     if args.top_artists:
         n = get_top_artist_count(db, args.top_artists)
         for i, p in enumerate(n):
-            print(f"{i+1}) {p[0]}: {p[1]}")
+            print(f"{i + 1}) {p[0]}: {p[1]}")
 
     if args.column_index:
         print(
             f"{args.stats} is {get_column_stat(db, args.column_index, args.stats)} for {args.column_index} column!"
         )
 
-test(db)
+    test(db)
