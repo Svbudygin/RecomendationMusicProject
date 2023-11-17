@@ -1,7 +1,6 @@
 import argparse
 from typing import List, Tuple
-import pandas as pd
-
+from controller import *
 TRACK_ID_CL = 2
 TRACK_NAME_CL = 3
 TRACK_POP_CL = 4
@@ -37,7 +36,6 @@ def preprocess_file(file_path: str) -> List[List[object]]:
     #  TODO: don't use pandas
 
     return df.values.tolist()
-
 
 def cosine_similarity(vector1: list, vector2: list):
     ln_vector = len(vector2)

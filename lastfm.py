@@ -59,7 +59,7 @@ def parse_genius(artist, song):
     )  # Lyrics__Container-sc-1ynbvzw-1 kUgSbL
     # all_spans=text.find_all("span")#ReferentFragmentdesktop__Highlight-sc-110r0d9-1
     final_text = "\n\n".join([span.text.strip() for span in text])
-
+    return final_text
     print(final_text)
 
 
